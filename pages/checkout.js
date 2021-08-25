@@ -41,7 +41,7 @@ export default function checkout({ item }) {
                 })
                 router.push(`/order/${order.code}`)
             } catch (err) {
-                console.error(err)
+                console.log(err)
             }
         },
     });
