@@ -5,7 +5,7 @@ import { fetchAllProducts } from '../../services/fetchData'
 import Images from '@/components/Images'
 
 export default function products({ products, children, products_attach }) {
- 
+
   return (
     <Layout>
       <ProductLayout products={products}>
@@ -43,31 +43,43 @@ export default function products({ products, children, products_attach }) {
   )
 }
 
-
-
-export async function getStaticProps({ params: { slug } }) {
+export const getServerSideProps = async ({ params: { slug } }) => {
   const product_found = await fetchAllProducts(`/products/?slug=${slug}`)
-  //const product_found = await product_res.json()
-
-  //get related products and attach them to the product item
   const products_attach = await fetchAllProducts('/products')
-  //const products_attach = await product_List.json()
+
 
   return {
     props: { products: product_found, products_attach }
-  }
-}
-export async function getStaticPaths() {
-  const products = await fetchAllProducts('/products')
-  //const products = await data.json()
 
-  return {
-    paths: products.map((product) => ({
-      params: { slug: String(product.slug) }
-    })),
-    fallback: false
-  }
-}
+  };
+};
+
+// export async function getStaticProps({ params: { slug } }) {
+//   const product_found = await fetchAllProducts(`/products/?slug=${slug}`)
+//   //const product_found = await product_res.json()
+
+//   //get related products and attach them to the product item
+//   const products_attach = await fetchAllProducts('/products')
+//   //const products_attach = await product_List.json()
+
+//   return {
+//     props: { products: product_found, products_attach }
+//   }
+// }
+// export async function getStaticPaths() {
+//   const products = await fetchAllProducts('/products')
+//   //const products = await data.json()
+
+//   return {
+//     paths: products.map((product) => ({
+//       params: { slug: String(product.slug) }
+//     })),
+//     fallback: false
+//   }
+// }
+
+
+
 
 
 
