@@ -20,7 +20,7 @@ export default function index({ products }) {
 
 //with REST API
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
   // const data = await fetch(`${process.env.NEXT_PUBLIC_STRAPI_API_URL}/'products'`)
   // const products = await data.json()
   const products = await fetchAllProducts('/products')
@@ -28,7 +28,6 @@ export async function getStaticProps() {
 
   return {
     props: { products },
-    revalidate: 1
   }
 }
 // export async function getStaticProps() {
