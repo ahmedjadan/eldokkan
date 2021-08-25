@@ -21,9 +21,10 @@ export default function index({ products }) {
 //with REST API
 
 export async function getStaticProps() {
-  const [products, categories] = await Promise.all([
-    fetchAllProducts('/products')
-  ])
+  // const data = await fetch(`${process.env.NEXT_PUBLIC_STRAPI_API_URL}/'products'`)
+  // const products = await data.json()
+  const products = await fetchAllProducts('/products')
+
 
   return {
     props: { products },
