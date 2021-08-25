@@ -20,16 +20,17 @@ export const CaretProvider = ({ children }) => {
     }
 
     //persist to localStorage
+
     useEffect(() => {
-        const cartData = localStorage.getItem('dokkan-cart') || []
+        const cartData = localStorage.getItem('dokkan-cart') || [{}]
         if (cartData) {
             setCart(JSON.parse(cartData))
         }
     }, [])
+
     useEffect(() => {
         localStorage.setItem('dokkan-cart', JSON.stringify(cart))
-    })
-
+    }, [cart])
     //add to cart 
     const addToCart = (product) => {
         const { items = [] } = cart
@@ -94,11 +95,11 @@ export const CaretProvider = ({ children }) => {
         // } else {
         //     items[productsIdx].qty++;
         // }
-        setCart({ items: [], ...calculateTotalItemsAndPrice([])})
+        setCart({ items: [], ...calculateTotalItemsAndPrice([]) })
 
     }
     return (
-        <CartContext.Provider value={{ cart,clearCart, addToCart, removeFromCart, IncrementCartQnty, DecrementCartQnty }}>
+        <CartContext.Provider value={{ cart, clearCart, addToCart, removeFromCart, IncrementCartQnty, DecrementCartQnty }}>
             {children}
         </CartContext.Provider>
     )
