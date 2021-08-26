@@ -6,7 +6,9 @@ export default function ProductLayout({ products, children }) {
   const { addToCart } = useContext(CartContext)
   console.log(products)
   return (
+    
     <div className="max-w-5xl mx-auto px-2 lg:px-0 ">
+      
       {products && products.map((product) => (
         <div className="grid md:grid-cols-4 grid-cols-1  mx-auto  mt-20" key={product.id}>
           <div className="grid md:col-span-2 w-full h-[300px] bg-gray-300 bg-cover rounded-lg ">

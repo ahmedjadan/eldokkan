@@ -1,5 +1,6 @@
 import { useContext } from 'react'
 import { useRouter } from 'next/router'
+import Head from 'next/head'
 
 import { CartContext } from '@/src/components/context/CartContext'
 import Layout from '@/src/Layout/Layout'
@@ -13,6 +14,9 @@ export default function cart() {
 
     return (
         <Layout>
+            <Head>
+                <title>El-Dokkan | Shoping Bag</title>
+            </Head>
             <div className="max-w-6xl mx-auto mt-20 px-2">
                 <div className="text-center text-2xl font-bold py-10 text-gray-700">
                     Shoping Cart

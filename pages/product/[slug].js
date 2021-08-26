@@ -1,13 +1,18 @@
 import Link from 'next/link'
+import Head from 'next/head'
+
 import ProductLayout from '@/src/Layout/ProductLayout'
 import Layout from '@/src/Layout/Layout'
 import { fetchAllProducts } from '@/services/fetchData'
 import Images from '@/src/components/Images'
 
 export default function products({ products, children, products_attach }) {
-
+const product = products.map(({name}) => name) 
   return (
     <Layout>
+      <Head>
+        <title>El-Dokkan | {product}</title>
+      </Head>
       <ProductLayout products={products}>
         <div className="mx-auto  block mt-20 my-20 ">
 

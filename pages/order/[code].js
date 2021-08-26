@@ -1,4 +1,6 @@
 import { useContext, useState, useEffect } from 'react'
+import Head from 'next/head'
+
 import { useRouter } from 'next/router'
 import Layout from '@/src/Layout/Layout'
 import { CartContext } from '@/src/components/context/CartContext'
@@ -38,6 +40,9 @@ export default function orders({ orderData }) {
 
     return (
         <Layout>
+            <Head>
+                <title>El-Dokkan | Order</title>
+            </Head>
             <div className="text-center text-2xl font-bold py-5 text-gray-700">
                 Payment Information
             </div>

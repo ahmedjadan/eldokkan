@@ -1,4 +1,6 @@
 import { useContext } from 'react'
+import Head from 'next/head'
+
 import { useRouter } from 'next/router';
 import { useFormik } from 'formik';
 import { fetchProducts, createOrder } from '@/services/fetchData'
@@ -48,6 +50,9 @@ export default function checkout({ item }) {
     const { errors, touched } = formik
     return (
         <Layout>
+              <Head>
+                <title>El-Dokkan | Checkout</title>
+            </Head>
             <div className="max-w-6xl mx-auto mt-10 px-2">
                 <div className="text-center text-2xl font-bold py-5 text-gray-700">
                     Checkout
