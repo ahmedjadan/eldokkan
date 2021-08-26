@@ -22,9 +22,9 @@ export default function checkout({ item }) {
         },
         validationSchema: Yup.object().shape({
             full_name: Yup.string().required('Required'),
-            email: Yup.string().email('Invalid Email').required('Required'),
-            phone: Yup.string().required('Required'),
-            address: Yup.string().required('Required')
+            // email: Yup.string().email('Invalid Email').required('Required'),
+            // phone: Yup.string().required('Required'),
+            // address: Yup.string().required('Required')
         }),
         onSubmit: async values => {
             const { items = [] } = cart
@@ -43,14 +43,14 @@ export default function checkout({ item }) {
                 })
                 router.push(`/order/${order.code}`)
             } catch (err) {
-            console.log("🚀 ~ file: checkout.js ~ line 44 ~ checkout ~ err", err)
+                console.log("🚀 ~ file: checkout.js ~ line 44 ~ checkout ~ err", err.response.data)
             }
         },
     });
     const { errors, touched } = formik
     return (
         <Layout>
-              <Head>
+            <Head>
                 <title>El-Dokkan | Checkout</title>
             </Head>
             <div className="max-w-6xl mx-auto mt-10 px-2">
@@ -89,7 +89,7 @@ export default function checkout({ item }) {
                                             onChange={formik.handleChange}
                                             value={formik.values.email}
                                             className="p-3 rounded w-full"
-                                            
+
                                         />
                                     </div>
                                     <div className="relative">

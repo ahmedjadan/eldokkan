@@ -25,40 +25,40 @@ export default function index({ products }) {
 
 //with REST API
 
-// export async function getServerSideProps() {
-//   // const data = await fetch(`${process.env.NEXT_PUBLIC_STRAPI_API_URL}/'products'`)
-//   // const products = await data.json()
-//   const products = await fetchAllProducts('/products')
+export async function getServerSideProps() {
+  // const data = await fetch(`${process.env.NEXT_PUBLIC_STRAPI_API_URL}/'products'`)
+  // const products = await data.json()
+  const products = await fetchAllProducts('/products')
 
 
-//   return {
-//     props: { products },
-//   }
-// }
-export async function getStaticProps() {
-  const graphcms = new GraphQLClient('https://dry-plateau-13030.herokuapp.com/graphql');
-  const { products } = await graphcms.request(
-    `{
-      products{
-        slug
-        name
-        price
-        product_image{
-          url
-          formats
-        }
-            category {
-              name
-              slug
-            } 
-      }
-    }`
-  );
   return {
     props: { products },
-    revalidate: 2
   }
 }
+// export async function getStaticProps() {
+//   const graphcms = new GraphQLClient('https://dry-plateau-13030.herokuapp.com/graphql');
+//   const { products } = await graphcms.request(
+//     `{
+//       products{
+//         slug
+//         name
+//         price
+//         product_image{
+//           url
+//           formats
+//         }
+//             category {
+//               name
+//               slug
+//             } 
+//       }
+//     }`
+//   );
+//   return {
+//     props: { products },
+//     revalidate: 2
+//   }
+// }
 
 // export async function getServerSideProps({ params }) {
 //     const graphcms = new GraphQLClient('http://localhost:1337/graphql');
