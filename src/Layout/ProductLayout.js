@@ -1,6 +1,6 @@
 import { useContext } from 'react'
-import Images from '@/components/Images'
-import { CartContext } from '@/components/context/CartContext'
+import Images from '@/src/components/Images'
+import { CartContext } from '@/src/components/context/CartContext'
 
 export default function ProductLayout({ products, children }) {
   const { addToCart } = useContext(CartContext)

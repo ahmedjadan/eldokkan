@@ -1,7 +1,7 @@
-import { fetchAllProducts } from '../services/fetchData'
-import Layout from '@/Layout/Layout'
-import Hero from '@/components/Hero'
-import ProductItem from '@/components/ProductItem'
+import { fetchAllProducts } from '@/services/fetchData'
+import Layout from '@/src/Layout/Layout'
+import Hero from '@/src/components/Hero'
+import ProductItem from '@/src/components/ProductItem'
 
 export default function index({ products }) {
 

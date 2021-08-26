@@ -84,17 +84,8 @@ export const CaretProvider = ({ children }) => {
         setCart({ items, ...calculateTotalItemsAndPrice(items) })
     }
 
-    const clearCart = (product) => {
+    const clearCart = () => {
         const { items = [] } = cart
-        // const productsIdx = items.findIndex(item => item.id === product.id)
-        // if (productsIdx === -1) {
-        //     items.push({
-        //         ...product,
-        //         qty: 1,
-        //     })
-        // } else {
-        //     items[productsIdx].qty++;
-        // }
         setCart({ items: [], ...calculateTotalItemsAndPrice([]) })
 
     }

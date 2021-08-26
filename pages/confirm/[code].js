@@ -1,6 +1,6 @@
 import Link from 'next/link'
-import Layout from '@/Layout/Layout'
-import { fetchOrder } from '../../services/fetchData'
+import Layout from '@/src/Layout/Layout'
+import { fetchOrder } from '@/services/fetchData'
 
 export default function confirm({ orders }) {
     return (

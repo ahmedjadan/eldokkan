@@ -1,12 +1,12 @@
 import { useContext } from 'react'
 import { useRouter } from 'next/router';
 import { useFormik } from 'formik';
-import { fetchProducts, createOrder } from '../services/fetchData'
+import { fetchProducts, createOrder } from '@/services/fetchData'
 import * as Yup from 'yup';
-import Layout from '@/Layout/Layout'
-import { CartContext } from '@/components/context/CartContext'
-import CartItem from '@/components/Cart/CartItems'
-import Carthead from '@/components/Cart/Carthead';
+import Layout from '@/src/Layout/Layout'
+import { CartContext } from '@/src/components/context/CartContext'
+import CartItem from '@/src/components/Cart/CartItems'
+import Carthead from '@/src/components/Cart/Carthead';
 
 export default function checkout({ item }) {
     const router = useRouter()
@@ -41,7 +41,7 @@ export default function checkout({ item }) {
                 })
                 router.push(`/order/${order.code}`)
             } catch (err) {
-                console.log(err)
+            console.log("🚀 ~ file: checkout.js ~ line 44 ~ checkout ~ err", err)
             }
         },
     });

@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import { useContext } from 'react'
-import { CartContext } from '@/components/context/CartContext'
-import Images from '@/components/Images'
+import { CartContext } from '@/src/components/context/CartContext'
+import Images from '@/src/components/Images'
 
 export default function ProductsList({ product }) {
     const { addToCart } = useContext(CartContext)

@@ -1,10 +1,10 @@
 import { useContext } from 'react'
 import Link from 'next/link'
-import { CartContext } from '@/components/context/CartContext'
-import Images from '@/components/Images'
+import { CartContext } from '@/src/components/context/CartContext'
+import Images from '@/src/components/Images'
 
 export default function CartItem({ item }) {
-    const { removeFromCart,  DecrementCartQnty, IncrementCartQnty, cart } = useContext(CartContext)
+    const { removeFromCart, DecrementCartQnty, IncrementCartQnty, cart } = useContext(CartContext)
 
     return (
         <>

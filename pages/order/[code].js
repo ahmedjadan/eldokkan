@@ -1,10 +1,10 @@
 import { useContext, useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
-import Layout from '@/Layout/Layout'
-import { CartContext } from '@/components/context/CartContext'
-import Carthead from '@/components/Cart/Carthead';
-import { patchOrder, fetchOrder } from '../../services/fetchData'
-import PayButton from '@/components/PayButton'
+import Layout from '@/src/Layout/Layout'
+import { CartContext } from '@/src/components/context/CartContext'
+import Carthead from '@/src/components/Cart/Carthead';
+import { patchOrder, fetchOrder } from '@/services/fetchData'
+import PayButton from '@/src/components/PayButton'
 
 
 export default function orders({ orderData }) {
@@ -31,7 +31,7 @@ export default function orders({ orderData }) {
 
         }
         catch (err) {
-            console.log(err)
+            console.log("🚀 ~ file: [code].js ~ line 34 ~ handlePaymentSuccess ~ err", err)
         }
     }
     console.log(order)

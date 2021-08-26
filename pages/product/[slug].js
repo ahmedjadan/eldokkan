@@ -1,8 +1,8 @@
 import Link from 'next/link'
-import ProductLayout from '@/Layout/ProductLayout'
-import Layout from '@/Layout/Layout'
-import { fetchAllProducts } from '../../services/fetchData'
-import Images from '@/components/Images'
+import ProductLayout from '@/src/Layout/ProductLayout'
+import Layout from '@/src/Layout/Layout'
+import { fetchAllProducts } from '@/services/fetchData'
+import Images from '@/src/components/Images'
 
 export default function products({ products, children, products_attach }) {
 

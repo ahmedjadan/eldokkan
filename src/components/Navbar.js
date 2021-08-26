@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import { useContext } from 'react'
-import { CartContext } from '@/components/context/CartContext'
+import { CartContext } from '@/src/components/context/CartContext'
 
 
 export default function Navbar() {

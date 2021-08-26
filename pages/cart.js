@@ -1,10 +1,10 @@
 import { useContext } from 'react'
 import { useRouter } from 'next/router'
 
-import { CartContext } from '@/components/context/CartContext'
-import Layout from '@/Layout/Layout'
-import CartItem from '@/components/Cart/CartItems'
-import Carthead from '@/components/Cart/Carthead'
+import { CartContext } from '@/src/components/context/CartContext'
+import Layout from '@/src/Layout/Layout'
+import CartItem from '@/src/components/Cart/CartItems'
+import Carthead from '@/src/components/Cart/Carthead'
 
 
 export default function cart() {
