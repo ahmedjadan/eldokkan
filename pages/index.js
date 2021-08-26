@@ -41,8 +41,10 @@ export async function getServerSideProps() {
 //     `{
 //       products{
 //         slug
+//          id
 //         name
 //         price
+//         description
 //         product_image{
 //           url
 //           formats
@@ -50,6 +52,7 @@ export async function getServerSideProps() {
 //             category {
 //               name
 //               slug
+//                id
 //             } 
 //       }
 //     }`

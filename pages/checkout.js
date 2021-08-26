@@ -22,9 +22,9 @@ export default function checkout({ item }) {
         },
         validationSchema: Yup.object().shape({
             full_name: Yup.string().required('Required'),
-            // email: Yup.string().email('Invalid Email').required('Required'),
-            // phone: Yup.string().required('Required'),
-            // address: Yup.string().required('Required')
+            email: Yup.string().email('Invalid Email').required('Required'),
+            phone: Yup.string().required('Required'),
+            address: Yup.string().required('Required')
         }),
         onSubmit: async values => {
             const { items = [] } = cart
