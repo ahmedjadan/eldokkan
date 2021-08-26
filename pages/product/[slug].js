@@ -7,7 +7,7 @@ import { fetchAllProducts } from '@/services/fetchData'
 import Images from '@/src/components/Images'
 
 export default function products({ products, children, products_attach }) {
-const product = products.map(({name}) => name) 
+  const product = products.map(({ name }) => name)
   return (
     <Layout>
       <Head>
@@ -20,7 +20,7 @@ const product = products.map(({name}) => name)
             Related Products, You may Consider.
           </h1>
 
-          <div className="w-full grid grid-cols-1 lg:grid-cols-5 md:grid-cols-4 gap-2 ">
+          <div className="w-full grid grid-cols-2 lg:grid-cols-5 md:grid-cols-4 gap-2 ">
             {products_attach && products_attach.map((product, idx) => (
               <div className="w-full" key={idx}>
                 <Link href={`/product/${product.slug.normalize('NFD')
@@ -28,10 +28,6 @@ const product = products.map(({name}) => name)
                   <a>
                     <div className="flex flex-col relative">
                       <div className="h-[100px] rounded-md bg-contain bg-center object-cover">
-                        {/* {product&&product.map((pImage) => (
-                           <Image src={pImage.formats.small.url} layout="fill" /> 
-
-                        ))} */}
                         <Images image={product} layout="fill" />
                       </div>
                     </div>
