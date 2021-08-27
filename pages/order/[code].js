@@ -53,7 +53,7 @@ export default function orders({ orderData }) {
                         <div className="flex h-full items-center justify-around   text-lg border-b" key={idx} >
                             <div className="">
                             </div>
-                            <div className="flex-1 text-center px-4 py-1 text-gray-600 hidden md:flex">
+                            <div className="flex-1 text-center px-4 py-1 text-gray-600">
                                 <p className=" "> {item.name} </p>
                             </div>
                             <div className="flex-1 text-center text-gray-600 px-4 py-1 ">
@@ -70,15 +70,15 @@ export default function orders({ orderData }) {
 
                         </div>
                     ))}
+                    Total Amount: $ {cart.itemsPriceTotal}
                     <div>
-                        Total Amount: $ {cart.itemsPriceTotal}
                         <br />
                         <div className="bg-blue-50 p-2 rounded mt-4">
 
-                            <p> use this account to pay the total amount: </p>
-                            user: <span className="bg-indigo-200 p-1 rounded inline-block mt-2"> sb-v7c427181487@personal.example.com
+                            <p> Try this demo Account to Pay: </p>
+                            Email: <span className="bg-indigo-200 p-1 italic rounded inline-block mt-2"> sb-v7c427181487@personal.example.com
                             </span> <br />
-                            password: <span className="bg-indigo-200 p-1 rounded inline-block mt-2">1q+-)AEn
+                            Password: <span className="bg-indigo-200 italic p-1 rounded inline-block mt-2">1q+-)AEn
 
                             </span>
                         </div>
@@ -95,6 +95,11 @@ export default function orders({ orderData }) {
                                     onSuccess={handlePaymentSuccess}
                                     key={idx}
                                 />
+                            )}
+                            {details.status && details.status === 'paid' && (
+                                <p>
+                                    Thanks, your order submitted successfully!
+                                </p>
                             )}
                         </>
                     ))}

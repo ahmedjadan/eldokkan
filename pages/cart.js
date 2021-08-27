@@ -8,9 +8,11 @@ import CartItem from '@/src/components/Cart/CartItems'
 import Carthead from '@/src/components/Cart/Carthead'
 
 
+
 export default function cart() {
     const { cart } = useContext(CartContext)
     const router = useRouter()
+
 
     return (
         <Layout>

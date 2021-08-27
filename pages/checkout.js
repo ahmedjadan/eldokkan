@@ -1,6 +1,5 @@
 import { useContext } from 'react'
 import Head from 'next/head'
-
 import { useRouter } from 'next/router';
 import { useFormik } from 'formik';
 import { fetchProducts, createOrder } from '@/services/fetchData'
@@ -9,6 +8,9 @@ import Layout from '@/src/Layout/Layout'
 import { CartContext } from '@/src/components/context/CartContext'
 import CartItem from '@/src/components/Cart/CartItems'
 import Carthead from '@/src/components/Cart/Carthead';
+
+
+
 
 export default function checkout({ item }) {
     const router = useRouter()
