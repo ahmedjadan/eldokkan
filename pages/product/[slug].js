@@ -44,45 +44,44 @@ export default function products({ products, children, products_attach }) {
   )
 }
 
-export const getServerSideProps = async ({ params: { slug } }) => {
-  //const product_found = await fetchAllProducts(`/products/?slug=${slug}`)
+// export const getServerSideProps = async ({ params: { slug } }) => {
+//   //const product_found = await fetchAllProducts(`/products/?slug=${slug}`)
+//   const res = await fetch(`https://dry-plateau-13030.herokuapp.com/products/?slug=${slug}`)
+//   const product_found = await res.json()
+//   //
+//   const res_attach = await fetch(`https://dry-plateau-13030.herokuapp.com/products`)
+//   const products_attach = await res_attach.json()
+//   //const products_attach = await fetchAllProducts('/products')
+
+
+//   return {
+//     props: { products: product_found, products_attach }
+
+//   };
+// };
+
+export async function getStaticProps({ params: { slug } }) {
   const res = await fetch(`https://dry-plateau-13030.herokuapp.com/products/?slug=${slug}`)
   const product_found = await res.json()
   //
   const res_attach = await fetch(`https://dry-plateau-13030.herokuapp.com/products`)
   const products_attach = await res_attach.json()
-  //const products_attach = await fetchAllProducts('/products')
-
 
   return {
     props: { products: product_found, products_attach }
+  }
+}
+export async function getStaticPaths() {
+  const res = await fetch(`https://dry-plateau-13030.herokuapp.com/products`)
+  const products = await res.json()
 
-  };
-};
-
-// export async function getStaticProps({ params: { slug } }) {
-//   const product_found = await fetchAllProducts(`/products/?slug=${slug}`)
-//   //const product_found = await product_res.json()
-
-//   //get related products and attach them to the product item
-//   const products_attach = await fetchAllProducts('/products')
-//   //const products_attach = await product_List.json()
-
-//   return {
-//     props: { products: product_found, products_attach }
-//   }
-// }
-// export async function getStaticPaths() {
-//   const products = await fetchAllProducts('/products')
-//   //const products = await data.json()
-
-//   return {
-//     paths: products.map((product) => ({
-//       params: { slug: String(product.slug) }
-//     })),
-//     fallback: false
-//   }
-// }
+  return {
+    paths: products.map((product) => ({
+      params: { slug: String(product.slug) }
+    })),
+    fallback: false
+  }
+}
 
 
 
