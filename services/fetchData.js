@@ -11,24 +11,28 @@ const createAxios = () => {
 export const fetchProducts = async (query = '') => {
     const { data } = await createAxios().get(`/products?${query}`);
     return data;
-  };
-  //create order and post it to strapi backend
+};
+//create order and post it to strapi backend
 export const createOrder = async order => {
     const { data } = await createAxios().post('/orders', order);
+    console.log("createOrder", data)
     return data;
 }
 //fetch all products to the main index.js 
 export const fetchAllProducts = async products => {
     const { data } = await createAxios().get(products);
+    console.log("fetchAllProducts", data)
     return data;
 }
 
 export const fetchOrder = async order => {
     const { data } = await createAxios().get(order);
+    console.log("fetchOrder", data)
     return data;
 }
 export const patchOrder = async (code) => {
     const { data } = await createAxios().patch(`/orders/${code}`);
+    console.log("patchOrder ~ data", data)
     return data
 }
 

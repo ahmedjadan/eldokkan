@@ -28,6 +28,8 @@ export default function PayButton({ total, onSuccess }) {
 
 
     return (
-        <PayPalButton createOrder={onCreateOrder} onApprove={onApproveOrder} />
+        <div>
+            <PayPalButton createOrder={onCreateOrder} onApprove={onApproveOrder} />
+        </div>
     )
 }

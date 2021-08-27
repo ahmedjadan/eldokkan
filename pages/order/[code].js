@@ -11,14 +11,17 @@ import PayButton from '@/src/components/PayButton'
 
 export default function orders({ orderData }) {
     const router = useRouter()
-    const [order, setOrder] = useState(null)
+    const [order, setOrder] = useState({})
     const [refresh, setRefresh] = useState(0)
     const { cart, clearCart } = useContext(CartContext)
 
-    console.log(orderData)
+    //console.log(orderData)
     useEffect(() => {
         setOrder(orderData)
+        console.log("order", order)
+
     }, [refresh])
+   
 
     const status = orderData.map(({ status }) => status)
     //console.log(status[0])
@@ -36,8 +39,7 @@ export default function orders({ orderData }) {
             console.log("🚀 ~ file: [code].js ~ line 34 ~ handlePaymentSuccess ~ err", err)
         }
     }
-    console.log(order)
-
+    console.log("order", order)
     return (
         <Layout>
             <Head>
@@ -87,7 +89,7 @@ export default function orders({ orderData }) {
 
                 <div className="grid col-span-2 mx-auto w-full">
                     {orderData && orderData.map((details, idx) => (
-                        <>
+                        <div key={idx}>
                             {details.status && details.status !== 'paid' && (
                                 <PayButton
                                     total={details.total}
@@ -101,7 +103,7 @@ export default function orders({ orderData }) {
                                     Thanks, your order submitted successfully!
                                 </p>
                             )}
-                        </>
+                        </div>
                     ))}
                 </div>
             </div>
@@ -109,7 +111,9 @@ export default function orders({ orderData }) {
     )
 }
 export async function getServerSideProps({ params: { code } }) {
-    const orderData = await fetchOrder(`/orders/?code=${code}`)
+    //const orderData = await fetchOrder(`/orders/?code=${code}`)
+    const res = await fetch(`https://dry-plateau-13030.herokuapp.com/orders/?code=${code}`)
+    const orderData = await res.json()
 
     return {
         props: { orderData, }

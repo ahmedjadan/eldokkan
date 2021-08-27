@@ -6,6 +6,7 @@ import Hero from '@/src/components/Hero'
 import ProductItem from '@/src/components/ProductItem'
 
 export default function index({ products }) {
+  console.log("index ~ products", products)
 
   return (
     <Layout>
@@ -26,10 +27,9 @@ export default function index({ products }) {
 //with REST API
 
 export async function getServerSideProps() {
-  // const data = await fetch(`${process.env.NEXT_PUBLIC_STRAPI_API_URL}/'products'`)
-  // const products = await data.json()
-  const products = await fetchAllProducts('/products')
-
+  const data = await fetch(`https://dry-plateau-13030.herokuapp.com/products`)
+  const products = await data.json()
+  //const products = await fetchAllProducts('/products')
 
   return {
     props: { products },

@@ -4,7 +4,7 @@ import { CartContext } from '@/src/components/context/CartContext'
 
 export default function ProductLayout({ products, children }) {
   const { addToCart } = useContext(CartContext)
-  console.log(products)
+  //console.log(products)
   return (
     
     <div className="max-w-5xl mx-auto px-2 lg:px-0 ">

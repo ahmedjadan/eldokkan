@@ -45,8 +45,13 @@ export default function products({ products, children, products_attach }) {
 }
 
 export const getServerSideProps = async ({ params: { slug } }) => {
-  const product_found = await fetchAllProducts(`/products/?slug=${slug}`)
-  const products_attach = await fetchAllProducts('/products')
+  //const product_found = await fetchAllProducts(`/products/?slug=${slug}`)
+  const res = await fetch(`https://dry-plateau-13030.herokuapp.com/products/?slug=${slug}`)
+  const product_found = await res.json()
+  //
+  const res_attach = await fetch(`https://dry-plateau-13030.herokuapp.com/products`)
+  const products_attach = await res_attach.json()
+  //const products_attach = await fetchAllProducts('/products')
 
 
   return {

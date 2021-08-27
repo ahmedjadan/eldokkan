@@ -3,6 +3,8 @@ import Layout from '@/src/Layout/Layout'
 import { fetchOrder } from '@/services/fetchData'
 
 export default function confirm({ orders }) {
+// console.log("confirm ~ orders", orders)
+    
     return (
         <Layout>
             <div className="max-w-5xl mx-auto mt-20 p-2">
@@ -24,7 +26,9 @@ export default function confirm({ orders }) {
 
 
 export async function getServerSideProps({ params: { code } }) {
-    const orders = await fetchOrder(`/orders/?code=${code}`)
+    //const res = await fetchOrder(`/orders/?code=${code}`)
+    const res = await fetch(`https://dry-plateau-13030.herokuapp.com/orders/?code=${code}`)
+    const orders = await res.json()
     return {
         props: { orders, }
     }

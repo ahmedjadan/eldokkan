@@ -37,11 +37,12 @@ export default function checkout({ item }) {
                 let total = 0;
                 items.forEach((item) => {
                     const product = products.find((p) => p.id === item.id)
+                    console.log("items.forEach ~ product", product)
                     total += item.qty * product.price
                 })
 
                 const order = await createOrder({
-                    ...values, total: `${total}`,
+                    ...values, total: String(total),
                 })
                 router.push(`/order/${order.code}`)
             } catch (err) {
