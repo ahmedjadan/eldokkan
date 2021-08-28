@@ -21,16 +21,19 @@ export const CaretProvider = ({ children }) => {
     }
 
     //persist to localStorage
-
     useEffect(() => {
-        const cartData = localStorage.getItem('dokkan-cart') || [{}]
+        //const cartData = localStorage.getItem('dokkan-cart') || [{}]
+        const cartData = JSON.parse(JSON.stringify(localStorage.getItem('dokkan-cart') || [] ));
+
         if (cartData) {
-            setCart(JSON.parse(cartData))
+            setCart(JSON.parse(cartData));
         }
     }, [])
 
     useEffect(() => {
-        localStorage.setItem('dokkan-cart', JSON.stringify(cart))
+        if (cart) {
+            localStorage.setItem('dokkan-cart', JSON.stringify(cart))
+        }
     }, [cart])
     //add to cart 
     const addToCart = (product) => {
