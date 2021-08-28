@@ -1,13 +1,22 @@
-import { GraphQLClient } from 'graphql-request'
 import Head from 'next/head'
-import { fetchAllProducts } from '@/services/fetchData'
 import Layout from '@/src/Layout/Layout'
 import Hero from '@/src/components/Hero'
 import ProductItem from '@/src/components/ProductItem'
+import useSWR from 'swr'
+import { useRouter } from 'next/router'
 
-export default function index({ products }) {
-  console.log("index ~ products", products)
+export default function index() {
+  const router = useRouter()
+  console.log("index ~ router", router)
+  
+  const { data, error } = useSWR('https://dry-plateau-13030.herokuapp.com/products')
 
+  if (error) {
+    return <div>Error</div>
+  }
+  if (!data) {
+    return <Layout> <div className="max-w-7xl mx-auto text-center">Loading......</div> </Layout>
+  }
   return (
     <Layout>
       <Head>
@@ -15,7 +24,7 @@ export default function index({ products }) {
       </Head>
       {/* <Hero /> */}
       <div>
-        <ProductItem products={products} />
+        <ProductItem products={data} errors={error} />
         { }
       </div>
     </Layout>
@@ -26,15 +35,17 @@ export default function index({ products }) {
 
 //with REST API
 
-export async function getServerSideProps() {
-  const data = await fetch(`https://dry-plateau-13030.herokuapp.com/products`)
-  const products = await data.json()
-  //const products = await fetchAllProducts('/products')
+// export async function getServerSideProps() {
+//   const data = await fetch(`https://dry-plateau-13030.herokuapp.com/products`)
+//   console.log("getServerSideProps ~ data", data)
 
-  return {
-    props: { products },
-  }
-}
+//   const products = await data.json()
+//   //const products = await fetchAllProducts('/products')
+
+//   return {
+//     props: { products },
+//   }
+// }
 // export async function getStaticProps() {
 //   const graphcms = new GraphQLClient('https://dry-plateau-13030.herokuapp.com/graphql');
 //   const { products } = await graphcms.request(

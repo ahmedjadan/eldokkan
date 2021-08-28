@@ -1,4 +1,7 @@
 import axios from 'axios';
+import useSWR from 'swr'
+
+const fetcher = url => axios.patch(url).then(res => res.data)
 
 const createAxios = () => {
     const params = {
@@ -27,11 +30,11 @@ export const fetchAllProducts = async products => {
 
 export const fetchOrder = async order => {
     const { data } = await createAxios().get(order);
-    console.log("fetchOrder", data)
     return data;
 }
 export const patchOrder = async (code) => {
     const { data } = await createAxios().patch(`/orders/${code}`);
+   
     console.log("patchOrder ~ data", data)
     return data
 }

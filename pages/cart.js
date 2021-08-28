@@ -14,7 +14,6 @@ export default function cart() {
     // console.log("cart ~ cart", cart)
     const router = useRouter()
 
-
     return (
         <Layout>
             <Head>

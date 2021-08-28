@@ -1,6 +1,7 @@
 import { useContext, useState, useEffect } from 'react'
 import Head from 'next/head'
-
+import useSWR, { useSWRConfig } from 'swr'
+import axios from 'axios'
 import { useRouter } from 'next/router'
 import Layout from '@/src/Layout/Layout'
 import { CartContext } from '@/src/components/context/CartContext'
@@ -9,37 +10,41 @@ import { patchOrder, fetchOrder } from '@/services/fetchData'
 import PayButton from '@/src/components/PayButton'
 
 
-export default function orders({ orderData }) {
+//const fetcher = (url) => axios(url).then((res) => res.json());
+
+const patcher = url => axios.patch(url).then(res => res.data)
+
+export default function orders() {
     const router = useRouter()
-    const [order, setOrder] = useState({})
+    const [order, setOrder] = useState(null)
     const [refresh, setRefresh] = useState(0)
     const { cart, clearCart } = useContext(CartContext)
 
-    //console.log(orderData)
+    const { query } = useRouter()
+
     useEffect(() => {
-        setOrder(orderData)
-        console.log("order", order)
-
-    }, [refresh])
-   
-
-    const status = orderData.map(({ status }) => status)
-    //console.log(status[0])
+        const fetchOrdersOut = async () => {
+            try {
+                const orderData = await fetchOrder(`/orders/?code=${query.code}`)
+                setOrder(orderData)
+            } catch (e) {
+                console.log("fetchOrdersOut ~ e", e)
+            }
+        }
+        fetchOrdersOut()
+    }, [refresh, query.code])
 
     const handlePaymentSuccess = async () => {
         try {
-            const code = orderData.map(({ code }) => code)
-            await patchOrder(code[0])
+            await patchOrder(query.code)
             setRefresh(refresh + 1)
-            router.push(`/confirm/${code[0]}`)
+            router.push(`/confirm/${query.code}`)
             await clearCart(order)
-
         }
         catch (err) {
-            console.log("🚀 ~ file: [code].js ~ line 34 ~ handlePaymentSuccess ~ err", err)
+            console.log("handlePaymentSuccess ~ err", err)
         }
     }
-    console.log("order", order)
     return (
         <Layout>
             <Head>
@@ -76,7 +81,6 @@ export default function orders({ orderData }) {
                     <div>
                         <br />
                         <div className="bg-blue-50 p-2 rounded mt-4">
-
                             <p> Try this demo Account to Pay: </p>
                             Email: <span className="bg-indigo-200 p-1 italic rounded inline-block mt-2"> sb-v7c427181487@personal.example.com
                             </span> <br />
@@ -88,12 +92,12 @@ export default function orders({ orderData }) {
                 </div>
 
                 <div className="grid col-span-2 mx-auto w-full">
-                    {orderData && orderData.map((details, idx) => (
+                    {order && order?.map((details, idx) => (
                         <div key={idx}>
                             {details.status && details.status !== 'paid' && (
                                 <PayButton
                                     total={details.total}
-                                    status={status}
+                                    status={details.status}
                                     onSuccess={handlePaymentSuccess}
                                     key={idx}
                                 />
@@ -109,13 +113,4 @@ export default function orders({ orderData }) {
             </div>
         </Layout>
     )
-}
-export async function getServerSideProps({ params: { code } }) {
-    //const orderData = await fetchOrder(`/orders/?code=${code}`)
-    const res = await fetch(`https://dry-plateau-13030.herokuapp.com/orders/?code=${code}`)
-    const orderData = await res.json()
-
-    return {
-        props: { orderData, }
-    }
 }

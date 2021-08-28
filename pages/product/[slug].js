@@ -1,13 +1,33 @@
 import Link from 'next/link'
 import Head from 'next/head'
-
+import useSWR from 'swr'
 import ProductLayout from '@/src/Layout/ProductLayout'
 import Layout from '@/src/Layout/Layout'
-import { fetchAllProducts } from '@/services/fetchData'
 import Images from '@/src/components/Images'
+import { useRouter } from 'next/router'
 
-export default function products({ products, children, products_attach }) {
-  const product = products.map(({ name }) => name)
+export default function products({products}) {
+  
+  const { data: products_attach, error } = useSWR('https://dry-plateau-13030.herokuapp.com/products')
+  const {query} = useRouter()
+
+  
+
+  const product = products?.map(({ name }) => name)
+  const proID = products?.find((pr) => pr.id)
+
+  const attached = products_attach?.filter((f) => proID?.id !== f.id)
+
+  if (error) {
+    return <div>Error {error} </div>
+  }
+  if (!products_attach) {
+    return <Layout>
+      <div className="max-w-6xl mx-auto text-center">
+        Loading......
+      </div>
+    </Layout>
+  }
   return (
     <Layout>
       <Head>
@@ -21,7 +41,7 @@ export default function products({ products, children, products_attach }) {
           </h1>
 
           <div className="w-full grid grid-cols-2 lg:grid-cols-5 md:grid-cols-4 gap-2 ">
-            {products_attach && products_attach.map((product, idx) => (
+            {attached && attached.map((product, idx) => (
               <div className="w-full" key={idx}>
                 <Link href={`/product/${product.slug.normalize('NFD')
                   .replace(/[\u0300-\u036f]/g, '')}`}>
@@ -44,31 +64,14 @@ export default function products({ products, children, products_attach }) {
   )
 }
 
-// export const getServerSideProps = async ({ params: { slug } }) => {
-//   //const product_found = await fetchAllProducts(`/products/?slug=${slug}`)
-//   const res = await fetch(`https://dry-plateau-13030.herokuapp.com/products/?slug=${slug}`)
-//   const product_found = await res.json()
-//   //
-//   const res_attach = await fetch(`https://dry-plateau-13030.herokuapp.com/products`)
-//   const products_attach = await res_attach.json()
-//   //const products_attach = await fetchAllProducts('/products')
-
-
-//   return {
-//     props: { products: product_found, products_attach }
-
-//   };
-// };
 
 export async function getStaticProps({ params: { slug } }) {
   const res = await fetch(`https://dry-plateau-13030.herokuapp.com/products/?slug=${slug}`)
-  const product_found = await res.json()
-  //
-  const res_attach = await fetch(`https://dry-plateau-13030.herokuapp.com/products`)
-  const products_attach = await res_attach.json()
+  const products = await res.json()
+  console.log("getStaticProps ~ products", products)
 
   return {
-    props: { products: product_found, products_attach }
+    props: { products, }
   }
 }
 export async function getStaticPaths() {

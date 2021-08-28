@@ -11,7 +11,6 @@ import Carthead from '@/src/components/Cart/Carthead';
 
 
 
-
 export default function checkout({ item }) {
     const router = useRouter()
     const { cart } = useContext(CartContext)
@@ -30,13 +29,15 @@ export default function checkout({ item }) {
         }),
         onSubmit: async values => {
             const { items = [] } = cart
-            const productId = items.map((item) => `id_in=${item.id}`)
+            const productId = items?.map((item) => `id_in=${item.id}`)
             const query = productId.join('&')
+            
             try {
+
                 const products = await fetchProducts(query)
                 let total = 0;
                 items.forEach((item) => {
-                    const product = products.find((p) => p.id === item.id)
+                    const product = products?.find((p) => p.id === item.id)
                     console.log("items.forEach ~ product", product)
                     total += item.qty * product.price
                 })
@@ -46,7 +47,7 @@ export default function checkout({ item }) {
                 })
                 router.push(`/order/${order.code}`)
             } catch (err) {
-                console.log("🚀 ~ file: checkout.js ~ line 44 ~ checkout ~ err", err.response.data)
+                console.log("🚀 ~ checkout ~ err", err.response.data)
             }
         },
     });

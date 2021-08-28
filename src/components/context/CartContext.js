@@ -1,3 +1,4 @@
+import { set } from 'nprogress'
 import { useState, createContext, useEffect } from 'react'
 
 export const CartContext = createContext()
