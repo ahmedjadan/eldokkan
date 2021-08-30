@@ -1,6 +1,4 @@
-import { set } from 'nprogress'
 import { useState, createContext, useEffect } from 'react'
-
 export const CartContext = createContext()
 
 //cart context provider
@@ -13,7 +11,7 @@ export const CaretProvider = ({ children }) => {
     const calculateTotalItemsAndPrice = (items) => {
         const itemsCountTotal = items.reduce((prev, curr) => prev + curr.qty, 0)
         const itemsPriceTotal = items.reduce((prev, curr) => {
-            return prev + curr.qty * curr.price
+            return prev + curr.qty * curr.price.toFixed(2)
         }, 0);
         return {
             itemsCountTotal, itemsPriceTotal,
@@ -23,7 +21,7 @@ export const CaretProvider = ({ children }) => {
     //persist to localStorage
     useEffect(() => {
         //const cartData = localStorage.getItem('dokkan-cart') || [{}]
-        const cartData = JSON.parse(JSON.stringify(localStorage.getItem('dokkan-cart') || [] ));
+        const cartData = JSON.parse(JSON.stringify(localStorage.getItem('dokkan-cart') || []));
 
         if (cartData) {
             setCart(JSON.parse(cartData));

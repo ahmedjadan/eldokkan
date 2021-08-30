@@ -3,13 +3,10 @@ import Layout from '@/src/Layout/Layout'
 import Hero from '@/src/components/Hero'
 import ProductItem from '@/src/components/ProductItem'
 import useSWR from 'swr'
-import { useRouter } from 'next/router'
 
 export default function index() {
-  const router = useRouter()
-  console.log("index ~ router", router)
-  
-  const { data, error } = useSWR('https://dry-plateau-13030.herokuapp.com/products')
+
+  const { data, error } = useSWR('https://dry-plateau-13030.herokuapp.com/products?_limit=5')
 
   if (error) {
     return <div>Error</div>

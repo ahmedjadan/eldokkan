@@ -4,14 +4,10 @@ import useSWR from 'swr'
 import ProductLayout from '@/src/Layout/ProductLayout'
 import Layout from '@/src/Layout/Layout'
 import Images from '@/src/components/Images'
-import { useRouter } from 'next/router'
 
 export default function products({products}) {
   
   const { data: products_attach, error } = useSWR('https://dry-plateau-13030.herokuapp.com/products')
-  const {query} = useRouter()
-
-  
 
   const product = products?.map(({ name }) => name)
   const proID = products?.find((pr) => pr.id)
@@ -68,7 +64,6 @@ export default function products({products}) {
 export async function getStaticProps({ params: { slug } }) {
   const res = await fetch(`https://dry-plateau-13030.herokuapp.com/products/?slug=${slug}`)
   const products = await res.json()
-  console.log("getStaticProps ~ products", products)
 
   return {
     props: { products, }

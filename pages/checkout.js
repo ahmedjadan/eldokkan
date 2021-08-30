@@ -31,15 +31,14 @@ export default function checkout({ item }) {
             const { items = [] } = cart
             const productId = items?.map((item) => `id_in=${item.id}`)
             const query = productId.join('&')
-            
+
             try {
 
                 const products = await fetchProducts(query)
                 let total = 0;
                 items.forEach((item) => {
                     const product = products?.find((p) => p.id === item.id)
-                    console.log("items.forEach ~ product", product)
-                    total += item.qty * product.price
+                    total += item.qty * product.price.toFixed(2)
                 })
 
                 const order = await createOrder({

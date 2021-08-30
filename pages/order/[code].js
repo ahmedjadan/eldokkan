@@ -1,6 +1,5 @@
 import { useContext, useState, useEffect } from 'react'
 import Head from 'next/head'
-import useSWR, { useSWRConfig } from 'swr'
 import axios from 'axios'
 import { useRouter } from 'next/router'
 import Layout from '@/src/Layout/Layout'
@@ -9,10 +8,6 @@ import Carthead from '@/src/components/Cart/Carthead';
 import { patchOrder, fetchOrder } from '@/services/fetchData'
 import PayButton from '@/src/components/PayButton'
 
-
-//const fetcher = (url) => axios(url).then((res) => res.json());
-
-const patcher = url => axios.patch(url).then(res => res.data)
 
 export default function orders() {
     const router = useRouter()
