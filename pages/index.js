@@ -1,6 +1,5 @@
 import Head from 'next/head'
 import Layout from '@/src/Layout/Layout'
-import Hero from '@/src/components/Hero'
 import ProductItem from '@/src/components/ProductItem'
 import useSWR from 'swr'
 

@@ -28,6 +28,7 @@ export default function checkout({ item }) {
             address: Yup.string().required('Required')
         }),
         onSubmit: async values => {
+            console.log("checkout ~ values", values)
             const { items = [] } = cart
             const productId = items?.map((item) => `id_in=${item.id}`)
             const query = productId.join('&')
@@ -42,8 +43,9 @@ export default function checkout({ item }) {
                 })
 
                 const order = await createOrder({
-                    ...values, total: String(total),
+                    ...values, total: String(total), products,
                 })
+                console.log("checkout ~ order", order)
                 router.push(`/order/${order.code}`)
             } catch (err) {
                 console.log("🚀 ~ checkout ~ err", err.response.data)

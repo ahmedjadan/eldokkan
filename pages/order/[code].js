@@ -12,6 +12,7 @@ import PayButton from '@/src/components/PayButton'
 export default function orders() {
     const router = useRouter()
     const [order, setOrder] = useState(null)
+    const [orderProducts, setOrderProducts] = useState(null)
     const [refresh, setRefresh] = useState(0)
     const { cart, clearCart } = useContext(CartContext)
 
@@ -22,12 +23,15 @@ export default function orders() {
             try {
                 const orderData = await fetchOrder(`/orders/?code=${query.code}`)
                 setOrder(orderData)
+                const [orderProducts] = await orderData?.map(({ products }) => products)
+                setOrderProducts(orderProducts)
             } catch (e) {
                 console.log("fetchOrdersOut ~ e", e)
             }
         }
         fetchOrdersOut()
-    }, [refresh, query.code])
+
+    }, [refresh, query.code,])
 
     const handlePaymentSuccess = async () => {
         try {
@@ -40,6 +44,8 @@ export default function orders() {
             console.log("handlePaymentSuccess ~ err", err)
         }
     }
+    console.log("orderProducts ~ order", orderProducts)
+
     return (
         <Layout>
             <Head>
@@ -51,7 +57,7 @@ export default function orders() {
             <div className="max-w-6xl mx-auto mt-10 gap-2 grid-cols-1 px-2  grid md:grid-cols-6">
                 <div className="grid col-span-4 ">
                     <Carthead />
-                    {cart.items.map((item, idx) => (
+                    {orderProducts && orderProducts.map((item, idx) => (
                         <div className="flex h-full items-center justify-around   text-lg border-b" key={idx} >
                             <div className="">
                             </div>
@@ -60,18 +66,19 @@ export default function orders() {
                             </div>
                             <div className="flex-1 text-center text-gray-600 px-4 py-1 ">
                                 <div className="flex justify-center items-center">
-                                    <p className=" "> {item.qty} </p>
+                                    {/* <p className=" "> {item.qty} </p> */}
                                 </div>
                             </div>
                             <div className="flex-1 text-center px-4 py-1 ">
                                 <p className="text-gray-600"> ${' '}{item.price} </p>
                             </div>
                             <div className="flex-1 text-center px-4 py-1 hidden md:block text-gray-600">
-                                <p className=" "> ${' '}{(item.price * item.qty).toFixed(2)} </p>
+                                {/* <p className=" "> ${' '}{(item.price * item.qty).toFixed(2)} </p> */}
                             </div>
 
                         </div>
                     ))}
+
                     Total Amount: $ {cart.itemsPriceTotal}
                     <div>
                         <br />
