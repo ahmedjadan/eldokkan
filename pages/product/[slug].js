@@ -5,8 +5,8 @@ import ProductLayout from '@/src/Layout/ProductLayout'
 import Layout from '@/src/Layout/Layout'
 import Images from '@/src/components/Images'
 
-export default function products({products}) {
-  
+export default function products({ products }) {
+
   const { data: products_attach, error } = useSWR('https://dry-plateau-13030.herokuapp.com/products')
 
   const product = products?.map(({ name }) => name)

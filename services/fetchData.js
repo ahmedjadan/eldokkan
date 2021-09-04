@@ -5,7 +5,7 @@ const fetcher = url => axios.patch(url).then(res => res.data)
 
 const createAxios = () => {
     const params = {
-        baseURL: process.env.NEXT_PUBLIC_STRAPI_API_URL,
+        baseURL: process.env.NEXT_PUBLIC_STRAPI_API_URL
     };
     return axios.create(params);
 };
@@ -18,6 +18,10 @@ export const fetchProducts = async (query = '') => {
 //create order and post it to strapi backend
 export const createOrder = async order => {
     const { data } = await createAxios().post('/orders', order);
+    return data;
+}
+export const createCartOrder = async order => {
+    const { data } = await createAxios().post('/cart-products', order);
     return data;
 }
 //fetch all products to the main index.js 
@@ -33,7 +37,7 @@ export const fetchOrder = async order => {
 }
 export const patchOrder = async (code) => {
     const { data } = await createAxios().patch(`/orders/${code}`);
-   
+
     // console.log("patchOrder ~ data", data)
     return data
 }

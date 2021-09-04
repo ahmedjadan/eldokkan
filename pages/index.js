@@ -3,7 +3,7 @@ import Layout from '@/src/Layout/Layout'
 import ProductItem from '@/src/components/ProductItem'
 import useSWR from 'swr'
 
-export default function index() {
+export default function index({ products }) {
 
   const { data, error } = useSWR('https://dry-plateau-13030.herokuapp.com/products?_limit=5')
 
@@ -31,17 +31,18 @@ export default function index() {
 
 //with REST API
 
-// export async function getServerSideProps() {
-//   const data = await fetch(`https://dry-plateau-13030.herokuapp.com/products`)
-//   console.log("getServerSideProps ~ data", data)
+export async function getServerSideProps() {
+  const data = await fetch(`https://dry-plateau-13030.herokuapp.com/products`)
+  console.log("getServerSideProps ~ data", data)
 
-//   const products = await data.json()
-//   //const products = await fetchAllProducts('/products')
+  const products = await data.json()
+  //const products = await fetchAllProducts('/products')
 
-//   return {
-//     props: { products },
-//   }
-// }
+  return {
+    props: { products },
+  }
+}
+
 // export async function getStaticProps() {
 //   const graphcms = new GraphQLClient('https://dry-plateau-13030.herokuapp.com/graphql');
 //   const { products } = await graphcms.request(

@@ -4,13 +4,11 @@ import { CartContext } from '@/components/context/CartContext'
 
 
 export default function AddToCartButton() {
-    const { addToCart, cart, DecrementCartQnty, IncrementCartQnty } = useContext(CartContext)
-
+    const { addToCart, cart } = useContext(CartContext)
     return (
         <ProductLayout>
                 <div className="">
                 {cart.items.map((item) => (
-
                   <button
                     onClick={() => addToCart(item)}
                   >
@@ -22,7 +20,6 @@ export default function AddToCartButton() {
                     </div>
                   </button>
                 ))}
-
               </div>
         </ProductLayout>
     )

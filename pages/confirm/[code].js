@@ -3,8 +3,8 @@ import Layout from '@/src/Layout/Layout'
 import { fetchOrder } from '@/services/fetchData'
 
 export default function confirm({ orders }) {
-// console.log("confirm ~ orders", orders)
-    
+    // console.log("confirm ~ orders", orders)
+
     return (
         <Layout>
             <div className="max-w-5xl mx-auto mt-20 p-2">

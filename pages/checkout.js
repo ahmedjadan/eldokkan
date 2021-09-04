@@ -2,7 +2,7 @@ import { useContext } from 'react'
 import Head from 'next/head'
 import { useRouter } from 'next/router';
 import { useFormik } from 'formik';
-import { fetchProducts, createOrder } from '@/services/fetchData'
+import { fetchProducts, createOrder, createCartOrder } from '@/services/fetchData'
 import * as Yup from 'yup';
 import Layout from '@/src/Layout/Layout'
 import { CartContext } from '@/src/components/context/CartContext'
@@ -30,8 +30,11 @@ export default function checkout({ item }) {
         onSubmit: async values => {
             console.log("checkout ~ values", values)
             const { items = [] } = cart
+            console.log("checkout ~ items", items)
             const productId = items?.map((item) => `id_in=${item.id}`)
             const query = productId.join('&')
+
+
 
             try {
 
@@ -41,9 +44,13 @@ export default function checkout({ item }) {
                     const product = products?.find((p) => p.id === item.id)
                     total += item.qty * product.price.toFixed(2)
                 })
+            
+                const product_cart = items?.map((item) => {
+                    return { product_name: item.name, quantity: item.qty }
+                })
 
                 const order = await createOrder({
-                    ...values, total: String(total), products,
+                    ...values, total: String(total), products: product_cart
                 })
                 console.log("checkout ~ order", order)
                 router.push(`/order/${order.code}`)

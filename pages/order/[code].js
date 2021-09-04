@@ -66,7 +66,7 @@ export default function orders() {
                             </div>
                             <div className="flex-1 text-center text-gray-600 px-4 py-1 ">
                                 <div className="flex justify-center items-center">
-                                    {/* <p className=" "> {item.qty} </p> */}
+                                    <p className=" "> {item.qty} </p>
                                 </div>
                             </div>
                             <div className="flex-1 text-center px-4 py-1 ">
@@ -75,7 +75,6 @@ export default function orders() {
                             <div className="flex-1 text-center px-4 py-1 hidden md:block text-gray-600">
                                 {/* <p className=" "> ${' '}{(item.price * item.qty).toFixed(2)} </p> */}
                             </div>
-
                         </div>
                     ))}
 
