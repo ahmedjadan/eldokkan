@@ -3,7 +3,7 @@ import Layout from '@/src/Layout/Layout'
 import ProductItem from '@/src/components/ProductItem'
 import useSWR from 'swr'
 
-export default function index({ products }) {
+export default function index() {
 
   const { data, error } = useSWR('https://dry-plateau-13030.herokuapp.com/products?_limit=5')
 

@@ -44,7 +44,7 @@ export default function checkout({ item }) {
                     const product = products?.find((p) => p.id === item.id)
                     total += item.qty * product.price.toFixed(2)
                 })
-            
+
                 const product_cart = items?.map((item) => {
                     return { product_name: item.name, quantity: item.qty }
                 })

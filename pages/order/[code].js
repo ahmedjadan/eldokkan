@@ -22,6 +22,7 @@ export default function orders() {
         const fetchOrdersOut = async () => {
             try {
                 const orderData = await fetchOrder(`/orders/?code=${query.code}`)
+                console.log("fetchOrdersOut ~ orderData", orderData)
                 setOrder(orderData)
                 const [orderProducts] = await orderData?.map(({ products }) => products)
                 setOrderProducts(orderProducts)
@@ -44,7 +45,6 @@ export default function orders() {
             console.log("handlePaymentSuccess ~ err", err)
         }
     }
-    console.log("orderProducts ~ order", orderProducts)
 
     return (
         <Layout>
@@ -56,22 +56,22 @@ export default function orders() {
             </div>
             <div className="max-w-6xl mx-auto mt-10 gap-2 grid-cols-1 px-2  grid md:grid-cols-6">
                 <div className="grid col-span-4 ">
-                    <Carthead />
+                    {/* <Carthead /> */}
                     {orderProducts && orderProducts.map((item, idx) => (
                         <div className="flex h-full items-center justify-around   text-lg border-b" key={idx} >
                             <div className="">
                             </div>
                             <div className="flex-1 text-center px-4 py-1 text-gray-600">
-                                <p className=" "> {item.name} </p>
+                                <p className=" "> {item.product_name} </p>
                             </div>
                             <div className="flex-1 text-center text-gray-600 px-4 py-1 ">
                                 <div className="flex justify-center items-center">
-                                    <p className=" "> {item.qty} </p>
+                                    <p className=" "> {item.quantity} </p>
                                 </div>
                             </div>
-                            <div className="flex-1 text-center px-4 py-1 ">
+                            {/* <div className="flex-1 text-center px-4 py-1 ">
                                 <p className="text-gray-600"> ${' '}{item.price} </p>
-                            </div>
+                            </div> */}
                             <div className="flex-1 text-center px-4 py-1 hidden md:block text-gray-600">
                                 {/* <p className=" "> ${' '}{(item.price * item.qty).toFixed(2)} </p> */}
                             </div>
