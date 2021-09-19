@@ -9,27 +9,21 @@ export default function products({ products }) {
 
   const { data: products_attach, error } = useSWR('https://dry-plateau-13030.herokuapp.com/products')
 
+  //filtering the products by one that displayed on the product destailes and remove it from the attached products
   const product = products?.map(({ name }) => name)
   const proID = products?.find((pr) => pr.id)
-
   const attached = products_attach?.filter((f) => proID?.id !== f.id)
 
-  if (error) {
-    return <div>Error {error} </div>
-  }
-  if (!products_attach) {
-    return <Layout>
-      <div className="max-w-6xl mx-auto text-center">
-        Loading......
-      </div>
-    </Layout>
-  }
+  
   return (
     <Layout>
       <Head>
         <title>El-Dokkan | {product}</title>
       </Head>
       <ProductLayout products={products}>
+        {/* 
+        attached products component
+        */}
         <div className="mx-auto  block mt-20 my-20 ">
 
           <h1 className="text-center py-4 font-semibold text-gray-700">

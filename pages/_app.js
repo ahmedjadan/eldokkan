@@ -9,6 +9,8 @@ Router.onRouteChangeStart = () => Nprogress.start();
 Router.onRouteChangeComplete = () => Nprogress.done();
 Router.onRouteChangeError = () => Nprogress.done();
 
+
+// fetcher function for SWR use cases
 const fetcher = url => axios.get(url).then(res => res.data)
 
 function MyApp({ Component, pageProps, }) {

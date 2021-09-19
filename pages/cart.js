@@ -11,7 +11,6 @@ import Carthead from '@/src/components/Cart/Carthead'
 
 export default function cart() {
     const { cart } = useContext(CartContext)
-    // console.log("cart ~ cart", cart)
     const router = useRouter()
 
     return (

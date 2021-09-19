@@ -1,6 +1,5 @@
 import { useContext, useState, useEffect } from 'react'
 import Head from 'next/head'
-import axios from 'axios'
 import { useRouter } from 'next/router'
 import Layout from '@/src/Layout/Layout'
 import { CartContext } from '@/src/components/context/CartContext'
@@ -21,9 +20,10 @@ export default function orders() {
     useEffect(() => {
         const fetchOrdersOut = async () => {
             try {
+                // fetching single order based on the QUERY of that order
                 const orderData = await fetchOrder(`/orders/?code=${query.code}`)
-                console.log("fetchOrdersOut ~ orderData", orderData)
                 setOrder(orderData)
+                //getting the order product and render it on the PAYMENT page
                 const [orderProducts] = await orderData?.map(({ products }) => products)
                 setOrderProducts(orderProducts)
             } catch (e) {
@@ -34,8 +34,10 @@ export default function orders() {
 
     }, [refresh, query.code,])
 
+    //handleing PAYPAL process
     const handlePaymentSuccess = async () => {
         try {
+            // updating the PAYMENT status to 'paid'
             await patchOrder(query.code)
             setRefresh(refresh + 1)
             router.push(`/confirm/${query.code}`)
@@ -85,9 +87,7 @@ export default function orders() {
                             <p> Try this demo Account to Pay: </p>
                             Email: <span className="bg-indigo-200 p-1 italic rounded inline-block mt-2"> sb-v7c427181487@personal.example.com
                             </span> <br />
-                            Password: <span className="bg-indigo-200 italic p-1 rounded inline-block mt-2">1q+-)AEn
-
-                            </span>
+                            Password: <span className="bg-indigo-200 italic p-1 rounded inline-block mt-2">'1q+-)AEn' </span>
                         </div>
                     </div>
                 </div>

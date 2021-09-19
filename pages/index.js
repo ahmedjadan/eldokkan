@@ -1,27 +1,23 @@
+
 import Head from 'next/head'
 import Layout from '@/src/Layout/Layout'
 import ProductItem from '@/src/components/ProductItem'
-import useSWR from 'swr'
+//
 
-export default function index() {
 
-  const { data, error } = useSWR('https://dry-plateau-13030.herokuapp.com/products?_limit=5')
-
-  if (error) {
-    return <div>Error</div>
-  }
-  if (!data) {
-    return <Layout> <div className="max-w-7xl mx-auto text-center">Loading......</div> </Layout>
+export default function index({products}) {
+ 
+  if (!products) {
+    return <Layout> <div className="max-w-7xl mx-auto text-center">  </div> </Layout>
   }
   return (
     <Layout>
       <Head>
         <title>El-Dokkan | Home</title>
       </Head>
-      {/* <Hero /> */}
       <div>
-        <ProductItem products={data} errors={error} />
-        { }
+        <ProductItem products={products}  />
+     
       </div>
     </Layout>
   )
@@ -31,8 +27,8 @@ export default function index() {
 
 //with REST API
 
-export async function getServerSideProps() {
-  const data = await fetch(`https://dry-plateau-13030.herokuapp.com/products`)
+export async function getStaticProps() {
+  const data = await fetch(`https://dry-plateau-13030.herokuapp.com/products?_limit=5`)
   console.log("getServerSideProps ~ data", data)
 
   const products = await data.json()
@@ -40,6 +36,7 @@ export async function getServerSideProps() {
 
   return {
     props: { products },
+    revalidate: 2
   }
 }
 

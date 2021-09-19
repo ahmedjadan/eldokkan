@@ -28,31 +28,29 @@ export default function checkout({ item }) {
             address: Yup.string().required('Required')
         }),
         onSubmit: async values => {
-            console.log("checkout ~ values", values)
             const { items = [] } = cart
-            console.log("checkout ~ items", items)
+            // getting the products ids and GET by that QUERY 
             const productId = items?.map((item) => `id_in=${item.id}`)
             const query = productId.join('&')
 
 
 
             try {
-
+                //getting the total price of the product from the backend
                 const products = await fetchProducts(query)
                 let total = 0;
                 items.forEach((item) => {
                     const product = products?.find((p) => p.id === item.id)
                     total += item.qty * product.price.toFixed(2)
                 })
-
+                //attach the products cart to the order object
                 const product_cart = items?.map((item) => {
                     return { product_name: item.name, quantity: item.qty }
                 })
-
+                // creating the order and POST to the backend
                 const order = await createOrder({
                     ...values, total: String(total), products: product_cart
                 })
-                console.log("checkout ~ order", order)
                 router.push(`/order/${order.code}`)
             } catch (err) {
                 console.log("🚀 ~ checkout ~ err", err.response.data)

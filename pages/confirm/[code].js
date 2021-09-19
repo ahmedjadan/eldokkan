@@ -3,7 +3,6 @@ import Layout from '@/src/Layout/Layout'
 import { fetchOrder } from '@/services/fetchData'
 
 export default function confirm({ orders }) {
-    // console.log("confirm ~ orders", orders)
 
     return (
         <Layout>
