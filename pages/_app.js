@@ -25,7 +25,6 @@ function MyApp({ Component, pageProps, }) {
     <meta key="description" name="description" content="modern e-commerce small shop, using Strapi for backend, Nextjs for frontend and payment integration with PayPal, " />
     <meta key="keywords" name="keywords" content="shop, dokkan, e-commerce" />
     <meta key="author" name="author" content="Ahmed Jadan" />
-    <meta key="article:published_time" property="article:published_time" content={new Date(date).toISOString()} />
     <meta key="og:title" property="og:title" content={"El-Dokkan | E-commerce" || "By Ahmed Ja'dan"} />
     <meta key="og:description" property="og:description" content="modern e-commerce small shop, using Strapi for backend, Nextjs for frontend and payment integration with PayPal," />
     <meta key="og:type" property="og:type" content="website" />
